@@ -23,11 +23,12 @@ export default function StoryPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
         <Header />
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex justify-center py-12">
+        <main className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+          <div className="flex flex-col items-center justify-center py-12 sm:py-16">
             <LoadingSpinner size="lg" />
+            <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading story...</p>
           </div>
         </main>
       </div>
@@ -36,13 +37,15 @@ export default function StoryPage() {
 
   if (error || !story) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
         <Header />
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <ErrorMessage
-            message="Failed to load story"
-            onRetry={() => refetch()}
-          />
+        <main className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+          <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+            <ErrorMessage
+              message="Failed to load story"
+              onRetry={() => refetch()}
+            />
+          </div>
         </main>
       </div>
     );
@@ -84,74 +87,74 @@ export default function StoryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <Header />
-      
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <main className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Breadcrumb */}
-        <nav className="mb-6">
-          <ol className="flex items-center space-x-2 text-sm text-gray-500">
-            <li>
-              <Link href="/" className="hover:text-blue-600">
+        <nav className="mb-4 sm:mb-6">
+          <ol className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-500 overflow-x-auto scrollbar-hide">
+            <li className="flex-shrink-0">
+              <Link href="/" className="hover:text-blue-600 transition-colors">
                 Home
               </Link>
             </li>
-            <li>
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <li className="flex-shrink-0">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
             </li>
-            <li>
-              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+            <li className="flex-shrink-0">
+              <span className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
                 {story.category.name}
               </span>
             </li>
-            <li>
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <li className="flex-shrink-0">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
             </li>
-            <li className="text-gray-900 font-medium truncate">
+            <li className="text-gray-900 font-medium truncate min-w-0">
               {story.title}
             </li>
           </ol>
         </nav>
 
-        <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <article className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
           {/* Header */}
-          <div className="p-6 pb-4">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+          <div className="p-4 sm:p-6 pb-3 sm:pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3 sm:gap-0">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <span className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
                   {story.category.name}
                 </span>
-                <span className="text-gray-500 text-sm">
+                <span className="text-gray-500 text-xs sm:text-sm">
                   {formatDate(story.published_at)}
                 </span>
                 {story.read_time && (
                   <>
-                    <span className="text-gray-300">•</span>
-                    <span className="text-gray-500 text-sm">
+                    <span className="text-gray-300 hidden sm:inline">•</span>
+                    <span className="text-gray-500 text-xs sm:text-sm">
                       {story.read_time} min read
                     </span>
                   </>
                 )}
               </div>
               
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => toggleBookmark(story.id)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-all duration-300 hover:scale-105"
                 >
                   <svg
-                    className={`w-5 h-5 ${bookmarked ? 'text-blue-600 fill-current' : 'text-gray-400'}`}
+                    className={`w-4 h-4 sm:w-5 sm:h-5 ${bookmarked ? 'text-blue-600 fill-current' : 'text-gray-400'}`}
                     fill={bookmarked ? 'currentColor' : 'none'}
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
-                  <span className="text-sm font-medium">
+                  <span className="text-xs sm:text-sm font-medium hidden sm:inline">
                     {bookmarked ? 'Bookmarked' : 'Bookmark'}
                   </span>
                 </button>
@@ -160,28 +163,24 @@ export default function StoryPage() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
               {story.title}
             </h1>
 
-            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-4 sm:mb-6 leading-relaxed">
               {story.excerpt}
             </p>
 
             {/* Author */}
-            <div className="flex items-center gap-3 pb-6 border-b border-gray-200">
-              {story.author.avatar && (
-                <ImageComponent
-                  src={story.author.avatar}
-                  alt={story.author.name}
-                  width={48}
-                  height={48}
-                  className="rounded-full"
-                />
-              )}
-              <div>
-                <p className="font-medium text-gray-900">{story.author.name}</p>
-                <p className="text-sm text-gray-500">Author</p>
+            <div className="flex items-center gap-3 pb-4 sm:pb-6 border-b border-gray-200">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-white text-sm sm:text-base font-bold">
+                  {story.author.name.charAt(0)}
+                </span>
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-gray-900 text-sm sm:text-base truncate">{story.author.name}</p>
+                <p className="text-xs sm:text-sm text-gray-500">Author • {formatDate(story.published_at)}</p>
               </div>
             </div>
           </div>
@@ -198,21 +197,21 @@ export default function StoryPage() {
           </div>
 
           {/* Content */}
-          <div className="p-6 pt-8">
-            <div 
-              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline"
+          <div className="p-4 sm:p-6 pt-6 sm:pt-8">
+            <div
+              className="prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:shadow-md"
               dangerouslySetInnerHTML={{ __html: story.content }}
             />
 
             {/* Tags */}
             {story.tags && story.tags.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">Tags</h3>
+              <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-900 mb-3">Related Topics</h3>
                 <div className="flex flex-wrap gap-2">
                   {story.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                      className="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs sm:text-sm font-medium hover:from-blue-100 hover:to-purple-100 hover:text-blue-800 transition-all duration-300 cursor-pointer"
                     >
                       #{tag}
                     </span>
@@ -224,13 +223,13 @@ export default function StoryPage() {
         </article>
 
         {/* Related Stories */}
-        <RelatedStories currentStory={story} className="mt-12" />
+        <RelatedStories currentStory={story} className="mt-8 sm:mt-12" />
 
         {/* Back to Home */}
-        <div className="mt-8 text-center">
+        <div className="mt-6 sm:mt-8 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
