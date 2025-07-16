@@ -117,15 +117,15 @@ export default function StoryPage() {
           </ol>
         </nav>
 
-        <article className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <article className="bg-white rounded-lg shadow-sm overflow-hidden" style={{backgroundColor: '#ffffff', color: '#000000'}}>
           {/* Header */}
-          <div className="p-4 sm:p-6 pb-3 sm:pb-4">
+          <div className="p-4 sm:p-6 pb-3 sm:pb-4" style={{backgroundColor: '#ffffff'}}>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3 sm:gap-0">
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <span className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
                   {story.category.name}
                 </span>
-                <span className="text-gray-500 text-xs sm:text-sm">
+                <span className="text-gray-500 text-xs sm:text-sm" style={{color: '#374151'}}>
                   {formatDate(story.published_at)}
                 </span>
                 {story.read_time && (
@@ -160,11 +160,11 @@ export default function StoryPage() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight" style={{color: '#000000'}}>
               {story.title}
             </h1>
 
-            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-6 leading-relaxed" style={{color: '#374151'}}>
               {story.excerpt}
             </p>
 
@@ -180,8 +180,8 @@ export default function StoryPage() {
                 />
               )}
               <div>
-                <p className="font-medium text-gray-900">{story.author.name}</p>
-                <p className="text-sm text-gray-500">Author</p>
+                <p className="font-medium text-gray-900" style={{color: '#000000'}}>{story.author.name}</p>
+                <p className="text-sm text-gray-500" style={{color: '#374151'}}>Author</p>
               </div>
             </div>
           </div>
@@ -198,9 +198,10 @@ export default function StoryPage() {
           </div>
 
           {/* Content */}
-          <div className="p-6 pt-8">
+          <div className="p-6 pt-8" style={{backgroundColor: '#ffffff'}}>
             <div
               className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline"
+              style={{color: '#000000'}}
               dangerouslySetInnerHTML={{ __html: story.content }}
             />
 

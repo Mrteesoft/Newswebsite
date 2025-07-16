@@ -5,6 +5,68 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Mobile text visibility fixes for story pages */
+@media (max-width: 768px) {
+  /* Force text visibility on mobile story pages */
+  .prose p {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  .prose strong, .prose b {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  .prose li {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  /* Story page specific text fixes */
+  .text-gray-900, .text-gray-800, .text-gray-700 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  .text-gray-600, .text-gray-500 {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+  }
+
+  /* Ensure article content is visible */
+  article * {
+    color: inherit !important;
+  }
+
+  /* Force background colors for better contrast */
+  .bg-white {
+    background-color: #ffffff !important;
+  }
+
+  /* Ensure all text elements are visible */
+  * {
+    -webkit-text-fill-color: inherit !important;
+  }
+
+  /* Specific mobile text rendering fixes */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Force text visibility for all elements */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+}
+
 /* Optimize touch targets for mobile */
 @media (max-width: 768px) {
   button, a {
