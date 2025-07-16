@@ -25,7 +25,7 @@ export default function HeroSection() {
   const heroStory = stories && stories.length > 0 ? stories[0] : null;
 
   return (
-    <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
+    <section className="relative h-screen sm:h-[60vh] lg:h-[70vh] overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

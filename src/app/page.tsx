@@ -30,14 +30,14 @@ export default function Home() {
       {/* Hero Section */}
       {!showFilteredResults && <HeroSection />}
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="mb-8">
+      <main className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-8 lg:py-12">
+        <div className="mb-4 sm:mb-8">
           <CategoryNav />
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 xl:gap-12">
           {/* Main Content */}
-          <div className="xl:col-span-3 space-y-8 sm:space-y-12 lg:space-y-16">
+          <div className="xl:col-span-3 space-y-6 sm:space-y-8 lg:space-y-12 xl:space-y-16">
             {showFilteredResults ? (
               <FilteredStoriesSection />
             ) : (
@@ -51,8 +51,8 @@ export default function Home() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <div className="xl:col-span-1 space-y-4 sm:space-y-6 lg:space-y-8">
+          {/* Sidebar - Hidden on mobile */}
+          <div className="hidden xl:block xl:col-span-1 space-y-4 sm:space-y-6 lg:space-y-8">
             <TrendingStories />
             <div className="sticky top-8">
               <div className="bg-white rounded-lg shadow-sm p-6">

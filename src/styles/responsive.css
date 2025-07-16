@@ -45,6 +45,44 @@ html {
     color: #374151 !important;
     -webkit-text-fill-color: #374151 !important;
   }
+
+  /* Mobile-specific optimizations */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Ensure full screen sections on mobile */
+  .h-screen {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  }
+
+  /* Optimize touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Smooth scrolling for mobile */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile typography optimizations */
+  h1, h2, h3 {
+    line-height: 1.2;
+  }
+
+  /* Prevent zoom on input focus */
+  input, textarea, select {
+    font-size: 16px;
+  }
 }
 
 /* Optimize touch targets for mobile */
