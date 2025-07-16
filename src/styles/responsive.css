@@ -5,6 +5,48 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Force text visibility on mobile devices */
+@media (max-width: 768px) {
+  /* Ensure all text is visible on mobile */
+  body, p, h1, h2, h3, h4, h5, h6, span, div, article {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  /* Specific fixes for story pages */
+  .prose p {
+    color: #1f2937 !important;
+    -webkit-text-fill-color: #1f2937 !important;
+  }
+
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  /* Ensure links are visible */
+  .prose a {
+    color: #2563eb !important;
+    -webkit-text-fill-color: #2563eb !important;
+  }
+
+  /* Force background colors */
+  .bg-white {
+    background-color: #ffffff !important;
+  }
+
+  /* Ensure proper contrast for all text elements */
+  .text-gray-900, .text-gray-800, .text-gray-700 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+  }
+
+  .text-gray-600, .text-gray-500 {
+    color: #374151 !important;
+    -webkit-text-fill-color: #374151 !important;
+  }
+}
+
 /* Optimize touch targets for mobile */
 @media (max-width: 768px) {
   button, a {

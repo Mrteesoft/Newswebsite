@@ -23,12 +23,12 @@ export default function StoryPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <div className="min-h-screen bg-gray-100">
         <Header />
         <main className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
           <div className="flex flex-col items-center justify-center py-12 sm:py-16">
             <LoadingSpinner size="lg" />
-            <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading story...</p>
+            <p className="mt-4 text-black text-sm sm:text-base font-medium">Loading story...</p>
           </div>
         </main>
       </div>
@@ -37,10 +37,10 @@ export default function StoryPage() {
 
   if (error || !story) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <div className="min-h-screen bg-gray-100">
         <Header />
         <main className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+          <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200">
             <ErrorMessage
               message="Failed to load story"
               onRetry={() => refetch()}
@@ -87,40 +87,40 @@ export default function StoryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-gray-100">
       <Header />
 
       <main className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Breadcrumb */}
         <nav className="mb-4 sm:mb-6">
-          <ol className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-500 overflow-x-auto scrollbar-hide">
+          <ol className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-700 overflow-x-auto scrollbar-hide">
             <li className="flex-shrink-0">
-              <Link href="/" className="hover:text-blue-600 transition-colors">
+              <Link href="/" className="text-blue-600 hover:text-blue-800 transition-colors font-medium">
                 Home
               </Link>
             </li>
             <li className="flex-shrink-0">
-              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
             </li>
             <li className="flex-shrink-0">
-              <span className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
+              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">
                 {story.category.name}
               </span>
             </li>
             <li className="flex-shrink-0">
-              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
               </svg>
             </li>
-            <li className="text-gray-900 font-medium truncate min-w-0">
+            <li className="text-black font-medium truncate min-w-0">
               {story.title}
             </li>
           </ol>
         </nav>
 
-        <article className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
+        <article className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-gray-200" style={{backgroundColor: '#ffffff', color: '#000000'}}>
           {/* Header */}
           <div className="p-4 sm:p-6 pb-3 sm:pb-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3 sm:gap-0">
@@ -163,11 +163,11 @@ export default function StoryPage() {
               </div>
             </div>
 
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-3 sm:mb-4 leading-tight" style={{color: '#000000'}}>
               {story.title}
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-800 mb-4 sm:mb-6 leading-relaxed" style={{color: '#1f2937'}}>
               {story.excerpt}
             </p>
 
@@ -179,8 +179,8 @@ export default function StoryPage() {
                 </span>
               </div>
               <div className="min-w-0 flex-1">
-                <p className="font-semibold text-gray-900 text-sm sm:text-base truncate">{story.author.name}</p>
-                <p className="text-xs sm:text-sm text-gray-500">Author • {formatDate(story.published_at)}</p>
+                <p className="font-semibold text-black text-sm sm:text-base truncate" style={{color: '#000000'}}>{story.author.name}</p>
+                <p className="text-xs sm:text-sm text-gray-700" style={{color: '#374151'}}>Author • {formatDate(story.published_at)}</p>
               </div>
             </div>
           </div>
@@ -197,9 +197,10 @@ export default function StoryPage() {
           </div>
 
           {/* Content */}
-          <div className="p-4 sm:p-6 pt-6 sm:pt-8">
+          <div className="p-4 sm:p-6 pt-6 sm:pt-8" style={{backgroundColor: '#ffffff'}}>
             <div
-              className="prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:shadow-md"
+              className="prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:text-black prose-p:text-gray-900 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:shadow-md prose-strong:text-black prose-li:text-gray-900"
+              style={{color: '#000000'}}
               dangerouslySetInnerHTML={{ __html: story.content }}
             />
 
