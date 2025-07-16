@@ -6,18 +6,25 @@ import {
   API_ENDPOINTS 
 } from '@/types/api';
 
-// Generic API fetch function
+// Generic API fetch function with improved error handling
 async function apiRequest<T>(url: string): Promise<T> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
+      signal: controller.signal,
     });
 
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
     }
 
     const result = await response.json();
@@ -31,33 +38,54 @@ async function apiRequest<T>(url: string): Promise<T> {
 
     return result;
   } catch (error) {
-    console.error('API request failed:', error);
-    throw error;
+    if (error instanceof Error) {
+      if (error.name === 'AbortError') {
+        console.error('API request timeout:', url);
+        throw new Error('Request timeout - please try again');
+      }
+      console.error('API request failed:', error.message);
+      throw error;
+    }
+    console.error('Unknown API error:', error);
+    throw new Error('An unexpected error occurred');
   }
 }
 
-// Transform API story data to match our Story interface
+// Transform API story data to match our Story interface with validation
 function transformStoryData(apiData: any): Story {
+  if (!apiData) {
+    throw new Error('Invalid story data: data is null or undefined');
+  }
+
+  const storyData = apiData.story || apiData;
+
+  if (!storyData.id && !storyData.story?.id) {
+    throw new Error('Invalid story data: missing required id field');
+  }
+
+  const categoryName = storyData.category?.category_name || storyData.category?.name || 'General';
+  const contentLength = storyData.content?.length || 0;
+
   return {
-    id: apiData.story?.id || apiData.id,
-    title: apiData.story?.title || apiData.title,
-    slug: apiData.story?.slug || apiData.slug || '',
-    excerpt: apiData.story?.description || apiData.description || '',
-    content: apiData.story?.content || apiData.content || '',
-    featured_image: apiData.story?.banner_image || apiData.banner_image || '',
-    published_at: apiData.story?.created_at || apiData.created_at || '',
+    id: Number(storyData.id) || Number(apiData.id) || 0,
+    title: String(storyData.title || 'Untitled'),
+    slug: String(storyData.slug || storyData.title?.toLowerCase().replace(/\s+/g, '-') || ''),
+    excerpt: String(storyData.description || storyData.subtitle || '').substring(0, 300),
+    content: String(storyData.content || ''),
+    featured_image: String(storyData.banner_image || storyData.featured_image || ''),
+    published_at: String(storyData.created_at || storyData.published_at || new Date().toISOString()),
     author: {
-      id: 1,
-      name: apiData.story?.author || apiData.author || 'Unknown Author',
-      avatar: undefined,
+      id: Number(storyData.author_id) || 1,
+      name: String(storyData.author || 'Unknown Author'),
+      avatar: storyData.author_avatar || undefined,
     },
     category: {
-      id: apiData.story?.category?.category_id || apiData.category?.category_id || 1,
-      name: apiData.story?.category?.category_name || apiData.category?.category_name || 'General',
-      slug: apiData.story?.category?.category_name?.toLowerCase().replace(/\s+/g, '-') || 'general',
+      id: Number(storyData.category?.category_id || storyData.category?.id) || 1,
+      name: String(categoryName),
+      slug: categoryName.toLowerCase().replace(/\s+/g, '-'),
     },
-    tags: [],
-    read_time: Math.ceil((apiData.story?.content?.length || 0) / 1000) || 5,
+    tags: Array.isArray(storyData.tags) ? storyData.tags : [],
+    read_time: Math.max(1, Math.ceil(contentLength / 1000)) || 5,
   };
 }
 
@@ -103,8 +131,17 @@ export const apiService = {
 
   // Get top stories
   getTopStories: async (): Promise<Story[]> => {
-    const data = await apiRequest<any[]>(API_ENDPOINTS.TOP_STORIES);
-    return Array.isArray(data) ? data.map(transformStoryData) : [];
+    try {
+      const data = await apiRequest<any[]>(API_ENDPOINTS.TOP_STORIES);
+      if (!Array.isArray(data)) {
+        console.warn('Top stories data is not an array:', data);
+        return [];
+      }
+      return data.map(transformStoryData).filter(Boolean);
+    } catch (error) {
+      console.error('Error fetching top stories:', error);
+      return [];
+    }
   },
 
   // Get editor's picks
