@@ -16,11 +16,23 @@ export const QUERY_KEYS = {
 
 // React Query Hooks
 export const useCategories = () => {
-  return useQuery({
+  const result = useQuery({
     queryKey: [QUERY_KEYS.CATEGORIES],
     queryFn: apiService.getCategories,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 3,
+    refetchOnWindowFocus: false,
   });
+
+  // Debug logging
+  if (result.error) {
+    console.error('Categories query error:', result.error);
+  }
+  if (result.data) {
+    console.log('Categories query success:', result.data);
+  }
+
+  return result;
 };
 
 export const useTopStories = () => {
@@ -65,12 +77,14 @@ export const useMissedStories = (params: PaginationParams = {}) => {
   });
 };
 
-export const useCategoryStories = (categoryId: number, params: PaginationParams = {}) => {
+export const useCategoryStories = (categoryId: number | null, params: PaginationParams = {}) => {
   return useQuery({
     queryKey: [QUERY_KEYS.CATEGORY_STORIES, categoryId, params],
-    queryFn: () => apiService.getCategoryStories(categoryId, params),
-    enabled: !!categoryId,
+    queryFn: () => apiService.getCategoryStories(categoryId!, params),
+    enabled: !!categoryId && categoryId > 0,
     staleTime: 2 * 60 * 1000, // 2 minutes
+    retry: 2,
+    refetchOnWindowFocus: false,
   });
 };
 

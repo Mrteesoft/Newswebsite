@@ -23,11 +23,11 @@ export default function FilteredStoriesSection() {
   const { data: editorPicks, isLoading: editorLoading, error: editorError } = useEditorPicks({ per_page: 15 });
   const { data: featuredStories, isLoading: featuredLoading, error: featuredError } = useFeaturedStories({ per_page: 15 });
   const { data: latestStories, isLoading: latestLoading, error: latestError } = useLatestStories({ per_page: 15 });
-  const { 
-    data: categoryStories, 
-    isLoading: categoryLoading, 
-    error: categoryError 
-  } = useCategoryStories(selectedCategoryId || 0, { per_page: 15 });
+  const {
+    data: categoryStories,
+    isLoading: categoryLoading,
+    error: categoryError
+  } = useCategoryStories(selectedCategoryId, { per_page: 15 });
 
   // Combine all stories and remove duplicates
   const allStories = useMemo(() => {

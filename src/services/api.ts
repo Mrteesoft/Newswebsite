@@ -65,13 +65,40 @@ function transformStoryData(apiData: any): Story {
 export const apiService = {
   // Get all categories
   getCategories: async (): Promise<Category[]> => {
-    const data = await apiRequest<any[]>(API_ENDPOINTS.CATEGORIES);
-    return Array.isArray(data) ? data.map(cat => ({
-      id: cat.category_id || cat.id,
-      name: cat.category_name || cat.name,
-      slug: (cat.category_name || cat.name || '').toLowerCase().replace(/\s+/g, '-'),
-      description: cat.description,
-    })) : [];
+    try {
+      const data = await apiRequest<any[]>(API_ENDPOINTS.CATEGORIES);
+      console.log('Categories API response:', data);
+
+      if (!Array.isArray(data)) {
+        console.warn('Categories data is not an array:', data);
+        // Return fallback categories if API fails
+        return [
+          { id: 1, name: 'Politics', slug: 'politics', description: 'Political news and updates' },
+          { id: 2, name: 'Business', slug: 'business', description: 'Business and economic news' },
+          { id: 3, name: 'Sports', slug: 'sports', description: 'Sports news and updates' },
+          { id: 4, name: 'Entertainment', slug: 'entertainment', description: 'Entertainment news' },
+        ];
+      }
+
+      const categories = data.map(cat => ({
+        id: cat.category_id || cat.id,
+        name: cat.category_name || cat.name,
+        slug: (cat.category_name || cat.name || '').toLowerCase().replace(/\s+/g, '-'),
+        description: cat.description,
+      }));
+
+      console.log('Transformed categories:', categories);
+      return categories;
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+      // Return fallback categories if API fails
+      return [
+        { id: 1, name: 'Politics', slug: 'politics', description: 'Political news and updates' },
+        { id: 2, name: 'Business', slug: 'business', description: 'Business and economic news' },
+        { id: 3, name: 'Sports', slug: 'sports', description: 'Sports news and updates' },
+        { id: 4, name: 'Entertainment', slug: 'entertainment', description: 'Entertainment news' },
+      ];
+    }
   },
 
   // Get top stories
