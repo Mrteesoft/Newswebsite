@@ -1,21 +1,25 @@
 'use client';
 
+import { Suspense, lazy } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HeroSection from '@/components/HeroSection';
 import CategoryNav from '@/components/CategoryNav';
 import TopStoriesSection from '@/components/sections/TopStoriesSection';
-import EditorPicksSection from '@/components/sections/EditorPicksSection';
-import FeaturedStoriesSection from '@/components/sections/FeaturedStoriesSection';
-import LatestStoriesSection from '@/components/sections/LatestStoriesSection';
-import MissedStoriesSection from '@/components/sections/MissedStoriesSection';
-import FilteredStoriesSection from '@/components/sections/FilteredStoriesSection';
-import TrendingStories from '@/components/TrendingStories';
-import NewsletterSignup from '@/components/NewsletterSignup';
-import BackToTop from '@/components/BackToTop';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import SearchResults from '@/components/SearchResults';
 import CategoryStories from '@/components/CategoryStories';
 import { useAppSelector } from '@/store/hooks';
+
+// Lazy load non-critical components
+const EditorPicksSection = lazy(() => import('@/components/sections/EditorPicksSection'));
+const FeaturedStoriesSection = lazy(() => import('@/components/sections/FeaturedStoriesSection'));
+const LatestStoriesSection = lazy(() => import('@/components/sections/LatestStoriesSection'));
+const MissedStoriesSection = lazy(() => import('@/components/sections/MissedStoriesSection'));
+const FilteredStoriesSection = lazy(() => import('@/components/sections/FilteredStoriesSection'));
+const TrendingStories = lazy(() => import('@/components/TrendingStories'));
+const NewsletterSignup = lazy(() => import('@/components/NewsletterSignup'));
+const BackToTop = lazy(() => import('@/components/BackToTop'));
 
 export default function Home() {
   const searchQuery = useAppSelector((state) => state.categories.searchQuery);
@@ -39,21 +43,33 @@ export default function Home() {
           {/* Main Content */}
           <div className="xl:col-span-3 space-y-6 sm:space-y-8 lg:space-y-12 xl:space-y-16">
             {showFilteredResults ? (
-              <FilteredStoriesSection />
+              <Suspense fallback={<div className="flex justify-center py-8"><LoadingSpinner size="lg" /></div>}>
+                <FilteredStoriesSection />
+              </Suspense>
             ) : (
               <>
                 <TopStoriesSection />
-                <EditorPicksSection />
-                <FeaturedStoriesSection />
-                <LatestStoriesSection />
-                <MissedStoriesSection />
+                <Suspense fallback={<div className="flex justify-center py-8"><LoadingSpinner size="md" /></div>}>
+                  <EditorPicksSection />
+                </Suspense>
+                <Suspense fallback={<div className="flex justify-center py-8"><LoadingSpinner size="md" /></div>}>
+                  <FeaturedStoriesSection />
+                </Suspense>
+                <Suspense fallback={<div className="flex justify-center py-8"><LoadingSpinner size="md" /></div>}>
+                  <LatestStoriesSection />
+                </Suspense>
+                <Suspense fallback={<div className="flex justify-center py-8"><LoadingSpinner size="md" /></div>}>
+                  <MissedStoriesSection />
+                </Suspense>
               </>
             )}
           </div>
 
           {/* Sidebar - Hidden on mobile */}
           <div className="hidden xl:block xl:col-span-1 space-y-4 sm:space-y-6 lg:space-y-8">
-            <TrendingStories />
+            <Suspense fallback={<div className="flex justify-center py-4"><LoadingSpinner size="sm" /></div>}>
+              <TrendingStories />
+            </Suspense>
             <div className="sticky top-8">
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Links</h3>
@@ -85,11 +101,15 @@ export default function Home() {
         </div>
 
         {/* Newsletter Signup */}
-        <NewsletterSignup />
+        <Suspense fallback={<div className="flex justify-center py-8"><LoadingSpinner size="md" /></div>}>
+          <NewsletterSignup />
+        </Suspense>
       </main>
 
       <Footer />
-      <BackToTop />
+      <Suspense fallback={null}>
+        <BackToTop />
+      </Suspense>
     </div>
   );
 }

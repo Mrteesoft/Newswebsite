@@ -27,7 +27,9 @@ export const useTopStories = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.TOP_STORIES],
     queryFn: apiService.getTopStories,
-    staleTime: 2 * 60 * 1000, // 2 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 2,
+    refetchOnWindowFocus: false,
   });
 };
 

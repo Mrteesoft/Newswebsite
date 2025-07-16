@@ -57,7 +57,7 @@ export default function Carousel({ stories, autoSlideInterval = 5000, className 
       onMouseLeave={handleMouseLeave}
     >
       {/* Main Carousel Container */}
-      <div className="relative h-screen sm:h-[400px] lg:h-[500px] overflow-hidden rounded-none sm:rounded-xl lg:rounded-2xl shadow-xl sm:shadow-2xl">
+      <div className="relative h-screen overflow-hidden rounded-none shadow-xl">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
@@ -72,8 +72,8 @@ export default function Carousel({ stories, autoSlideInterval = 5000, className 
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 flex flex-col justify-center sm:justify-end p-6 sm:p-6 lg:p-8">
-          <div className="max-w-4xl text-center sm:text-left">
+        <div className="absolute inset-0 flex flex-col justify-center p-6 lg:p-8">
+          <div className="max-w-4xl text-center mx-auto">
             {/* Breaking News Badge */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 mb-6 sm:mb-4">
               <span className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-full text-sm font-bold animate-pulse">
