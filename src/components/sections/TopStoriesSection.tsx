@@ -59,8 +59,8 @@ export default function TopStoriesSection() {
         </div>
       </div>
 
-      <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-8">
-        {/* Main Carousel - Full width on mobile, 3/4 on desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
+        {/* Main Carousel - Takes 3/4 width */}
         <div className="lg:col-span-3">
           <Carousel
             stories={carouselStories}
@@ -69,9 +69,9 @@ export default function TopStoriesSection() {
           />
         </div>
 
-        {/* Sidebar Stories - Hidden on mobile, visible on desktop */}
+        {/* Sidebar Stories - Takes 1/4 width */}
         {sidebarStories.length > 0 && (
-          <div className="hidden lg:block space-y-4">
+          <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
               <svg className="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -103,51 +103,7 @@ export default function TopStoriesSection() {
         )}
       </div>
 
-      {/* Mobile Headlines Section - Only visible on mobile */}
-      {sidebarStories.length > 0 && (
-        <div className="lg:hidden mt-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">More Headlines</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {sidebarStories.map((story, index) => (
-              <div key={story.id} className="group">
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-blue-200 overflow-hidden">
-                  <div className="aspect-video relative">
-                    <img
-                      src={story.featured_image || '/api/placeholder/400/225'}
-                      alt={story.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.src = '/api/placeholder/400/225';
-                      }}
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">
-                        #{index + 6}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-medium">
-                        {story.category.name}
-                      </span>
-                      <span className="text-gray-500 text-xs">
-                        {new Date(story.published_at).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors text-sm leading-tight mb-2">
-                      <a href={`/stories/${story.id}`}>{story.title}</a>
-                    </h4>
-                    <p className="text-gray-600 text-xs line-clamp-2">
-                      {story.excerpt}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+
     </section>
   );
 }

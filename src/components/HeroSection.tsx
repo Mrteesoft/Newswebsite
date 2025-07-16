@@ -2,7 +2,6 @@
 
 import { useTopStories } from '@/hooks/useApi';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
 export default function HeroSection() {
@@ -26,18 +25,14 @@ export default function HeroSection() {
   const heroStory = stories && stories.length > 0 ? stories[0] : null;
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-          alt="News Background"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-      </div>
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')`
+        }}
+      />
       
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>

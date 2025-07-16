@@ -167,7 +167,7 @@ export default function StoryCard({ story, variant = 'default', className = '' }
   // Default variant
   return (
     <Link href={`/stories/${story.id}`} className={`block group ${className}`}>
-      <article className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md sm:shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col border border-gray-100 hover:border-blue-200 hover:-translate-y-1">
+      <article className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col border border-gray-100 hover:border-blue-200 hover:-translate-y-1">
         <div className="aspect-video relative">
           <ImageComponent
             src={story.featured_image}

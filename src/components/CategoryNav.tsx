@@ -30,39 +30,36 @@ export default function CategoryNav() {
   }
 
   return (
-    <nav className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg border border-gray-200/50 p-2 sm:p-2">
-      <div className="flex overflow-x-auto scrollbar-hide gap-1 sm:gap-2">
+    <nav className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-2">
+      <div className="flex overflow-x-auto scrollbar-hide gap-2">
         <button
           onClick={() => handleCategoryClick(null)}
-          className={`flex-shrink-0 px-3 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
+          className={`flex-shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
             selectedCategoryId === null
               ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
               : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:scale-105'
           }`}
         >
-          <span className="flex items-center gap-1 sm:gap-2">
-            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
+          <span className="flex items-center gap-2">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
             </svg>
-            <span className="hidden sm:inline">All Stories</span>
-            <span className="sm:hidden">All</span>
+            All Stories
           </span>
         </button>
         {categories?.map((category) => (
           <button
             key={category.id}
             onClick={() => handleCategoryClick(category.id)}
-            className={`flex-shrink-0 px-3 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
+            className={`flex-shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
               selectedCategoryId === category.id
                 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
                 : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:scale-105'
             }`}
           >
-            <span className="flex items-center gap-1 sm:gap-2">
-              <div className="w-3 h-3 sm:w-4 sm:h-4">
-                {getCategoryIcon(category.name)}
-              </div>
-              <span className="whitespace-nowrap">{category.name}</span>
+            <span className="flex items-center gap-2">
+              {getCategoryIcon(category.name)}
+              {category.name}
             </span>
           </button>
         ))}

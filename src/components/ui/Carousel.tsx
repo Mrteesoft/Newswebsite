@@ -57,7 +57,7 @@ export default function Carousel({ stories, autoSlideInterval = 5000, className 
       onMouseLeave={handleMouseLeave}
     >
       {/* Main Carousel Container */}
-      <div className="relative h-screen overflow-hidden rounded-none shadow-xl">
+      <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
@@ -72,10 +72,10 @@ export default function Carousel({ stories, autoSlideInterval = 5000, className 
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 flex flex-col justify-center p-6 lg:p-8">
-          <div className="max-w-4xl text-center mx-auto">
+        <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 lg:p-8">
+          <div className="max-w-4xl">
             {/* Breaking News Badge */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 mb-6 sm:mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <span className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-full text-sm font-bold animate-pulse">
                 <span className="w-2 h-2 bg-white rounded-full mr-2 animate-ping"></span>
                 BREAKING NEWS
@@ -86,12 +86,12 @@ export default function Carousel({ stories, autoSlideInterval = 5000, className 
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 sm:mb-4 leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
               {currentStory.title}
             </h2>
 
             {/* Excerpt */}
-            <p className="text-base sm:text-base lg:text-lg text-gray-200 mb-6 sm:mb-6 line-clamp-3 sm:line-clamp-2 max-w-3xl">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-4 sm:mb-6 line-clamp-2 max-w-3xl">
               {currentStory.excerpt}
             </p>
 
